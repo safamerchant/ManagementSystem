@@ -1,0 +1,294 @@
+/* General styling for home container */
+.home-container {
+    display: flex;
+    height: 100vh;
+}
+.sidebar {
+    width: 250px; /* Adjust width as necessary */
+    background-color: #333;
+    padding: 20px;
+    transition: width 0.3s ease; /* Smooth transition */
+}
+
+.sidebar-logo {
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-item {
+    margin-bottom: 20px; /* Space out each item */
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #444;
+    border-radius: 8px; /* Makes the links look like rectangles */
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-link:hover {
+    background-color: #555; /* Add a hover effect */
+}
+
+.sidebar-icon {
+    margin-right: 10px; /* Space between icon and text */
+}
+
+.sidebar.collapsed {
+    width: 80px; /* Shrink the sidebar when collapsed */
+}
+
+.sidebar.collapsed .sidebar-link {
+    justify-content: center; /* Center the icons */
+}
+
+.sidebar.collapsed .sidebar-link span {
+    display: none; /* Hide the text when collapsed */
+}
+
+.sidebar.collapsed .sidebar-nav li {
+    display: none; /* Hide individual nav items */
+}
+
+.toggle-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: block; /* Make it a block to be easier to click */
+}
+
+
+/* Main content styling */
+.main-content {
+    width: 80%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-container {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    position: relative; /* Position relative to the search bar */
+  }
+  
+  .search-icon {
+    position: absolute; /* Position the icon */
+    left: 10px; /* Adjust as needed */
+    color: #aaa; /* Change color to match your design */
+  }
+  
+  .search-bar {
+    padding-left: 30px; /* Make space for the icon */
+    width: 100%; /* Full width */
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 4px; /* Rounded corners */
+    height: 40px; /* Adjust height as needed */
+    font-size: 16px; /* Font size */
+  }
+  
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+/* Content styling */
+.content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Grid layout for sections */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 2fr); /* Two columns */
+    gap: 20px; /* Space between items */
+    margin-bottom: 20px; /* Space below the grid */
+}
+
+.white-section {
+    background-color: white; /* White background for sections */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Padding inside the section */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+}
+
+/* Tasks section */
+.tasks-section {
+    width: 70%;
+}
+
+.task-item {
+    background-color: #e3e3e3;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+/* Right section styling */
+.right-section {
+    width: 25%;
+    background-color: #f7f7f7;
+    padding: 20px;
+}
+
+.calendar {
+    margin-bottom: 20px;
+}
+
+/* To-do list styling */
+.todo-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.todo-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.todo-list li input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Charts styling */
+.charts {
+    display: flex;
+    flex-direction: column;
+}
+
+.chart {
+    margin-bottom: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .home-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .tasks-section,
+    .right-section {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-bar {
+        flex-direction: column;
+    }
+
+    .search-bar {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .user-info {
+        justify-content: center;
+    }
+}
+
+/* Custom styles for react-calendar */
+.react-calendar {
+    width: 100%;
+    max-width: 350px; /* Set maximum width */
+    background: #ffffff; /* Background color */
+    border: none; /* Border style */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+/* Styling the header of the calendar */
+.react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f7f7f7; /* Header background */
+    padding: 10px; /* Padding for the header */
+    border-bottom: 1px solid #ddd; /* Bottom border */
+}
+
+/* Customize the month label */
+.react-calendar__navigation__label {
+    font-size: 1.2em; /* Font size */
+    font-weight: bold; /* Font weight */
+}
+
+/* Style for the month view */
+.react-calendar__month-view {
+    padding: 10px; /* Padding for the month view */
+}
+
+/* Style for each day tile */
+.react-calendar__tile {
+    width: 40px; /* Tile width */
+    height: 40px; /* Tile height */
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    border-radius: 50%; /* Rounded tiles */
+    margin: 2px; /* Margin around tiles */
+    cursor: pointer; /* Pointer on hover */
+}
+
+/* Customize the selected day */
+.react-calendar__tile--active {
+    background: #007bff; /* Active day background */
+    color: white; /* Active day text color */
+}
+
+/* Style the hovered tile */
+.react-calendar__tile:hover {
+    background: #e0e0e0; /* Background on hover */
+}
+
+/* Style the tiles for today's date */
+.react-calendar__tile--now {
+    background: #252323; /* Background for today's date */
+    border-radius: 50%; /* Rounded corners */
+}
+
+/* Disabled tiles style */
+.react-calendar__tile--disabled {
+    background: #f0f0f0; /* Disabled tiles background */
+    color: #ccc; /* Disabled tiles text color */
+    cursor: not-allowed; /* Change cursor to indicate disabled */
+}
