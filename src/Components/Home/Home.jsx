@@ -1,29 +1,14 @@
 import React, { useState } from "react";
 import Avatar from "react-avatar";
 import GaugeChart from "react-gauge-chart"; // Import GaugeChart component
-import { FaHome, FaTasks, FaComments, FaChartLine, FaSearch } from "react-icons/fa";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from "chart.js";
 import { Doughnut, Bar } from "react-chartjs-2";
 import Calendar from "react-calendar"; // Import the calendar component
 import "react-calendar/dist/Calendar.css"; // Calendar styles
 import "./Home.css"; // Custom CSS
-
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
+import Sidebar from "../Sidebar/Sidebar.jsx"; // Import Sidebar component
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false); // State to manage sidebar visibility
-
-  // Function to handle the search click
-  const handleSearchClick = () => {
-    alert(`Searching for: ${searchTerm}`); // Replace with your search logic
-  };
-
-  const tasks = [
-    { id: 1, name: "Game COO", progress: 30 }, // 30% done
-    { id: 2, name: "Delivery App", progress: 88 }, // 88% done
-  ];
-
   const [date, setDate] = useState(new Date()); // State for calendar date
   const [taskList, setTasks] = useState([
     { id: 1, task: "Complete project documentation", completed: false },
@@ -31,34 +16,9 @@ const Home = () => {
     { id: 3, task: "Fix bugs in the delivery app", completed: false },
   ]); // Dummy data for to-do list
 
-  // Dummy data for charts
-  const taskProgressData = {
-    labels: ["Completed", "In Progress", "Pending"],
-    datasets: [
-      {
-        data: [60, 30, 10],
-        backgroundColor: ["#36A2EB", "#FFCE56", "#FF6384"],
-        hoverBackgroundColor: ["#36A2EB", "#FFCE56", "#FF6384"],
-      },
-    ],
-  };
-
-  const taskTimelineData = {
-    labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
-    datasets: [
-      {
-        label: "Tasks",
-        data: [5, 10, 3, 8],
-        backgroundColor: "#36A2EB",
-      },
-    ],
-  };
-
-  const collaborators = [
-    { name: "Alice", email: "alice@example.com" },
-    { name: "Bob", email: "bob@example.com" },
-    { name: "Charlie", email: "charlie@example.com" },
-    { name: "Dana", email: "dana@example.com" },
+  const tasks = [
+    { id: 1, name: "Game COO", progress: 30 }, // 30% done
+    { id: 2, name: "Delivery App", progress: 88 }, // 88% done
   ];
 
   // Handle checkbox toggle for tasks
@@ -70,50 +30,23 @@ const Home = () => {
     );
   };
 
-  // Toggle sidebar function
-  const toggleSidebar = () => {
-    setIsSidebarCollapsed((prevState) => !prevState);
-  };
+  const collaborators = [
+    { name: "Alice", email: "alice@example.com" },
+    { name: "Bob", email: "bob@example.com" },
+    { name: "Charlie", email: "charlie@example.com" },
+    { name: "Dana", email: "dana@example.com" },
+  ];
 
   return (
     <div className="home-container">
-      {/* Left Sidebar */}
-      <aside className={`sidebar ${isSidebarCollapsed ? "collapsed" : ""}`}>
-        <div className="sidebar-logo">My App</div>
-        <button className="toggle-button" onClick={toggleSidebar}>
-          {isSidebarCollapsed ? "☰" : "×"} {/* Toggle icon */}
-        </button>
-        <ul className="sidebar-nav">
-          <li className="sidebar-item">
-            <a href="#home" className="sidebar-link">
-              <FaHome className="sidebar-icon" /> <span>Home</span>
-            </a>
-          </li>
-          <li className="sidebar-item">
-            <a href="#topics" className="sidebar-link">
-              <FaChartLine className="sidebar-icon" /> <span>Topics</span>
-            </a>
-          </li>
-          <li className="sidebar-item">
-            <a href="#tasks" className="sidebar-link">
-              <FaTasks className="sidebar-icon" /> <span>My Tasks</span>
-            </a>
-          </li>
-          <li className="sidebar-item">
-            <a href="#messages" className="sidebar-link">
-              <FaComments className="sidebar-icon" /> <span>Messages</span>
-            </a>
-          </li>
-        </ul>
-      </aside>
-
+      {/* Sidebar */}
+      <Sidebar />
 
       {/* Main Content */}
       <main className="main-content">
         {/* Top Bar with Avatar */}
         <div className="top-bar">
-        <div className="search-container"> {/* New container for search input and icon */}
-            <FaSearch className="search-icon" /> {/* Icon on the left */}
+          <div className="search-container">
             <input
               type="text"
               placeholder="Search..."
@@ -122,7 +55,7 @@ const Home = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-           <div className="user-info">
+          <div className="user-info">
             <Avatar name="Alice" round={true} size="40" />
             <span className="user-name">Alice / BackEnd Developer </span>
           </div>
@@ -130,14 +63,17 @@ const Home = () => {
 
         {/* Content Below Navbar */}
         <div className="content">
-          <div className="grid-container"> {/* Grid container for layout */}
+          <div className="grid-container">
             <div className="tasks-section white-section">
               <h3>Today's Tasks</h3>
               <div className="tasks-list">
                 {tasks.map((task) => (
                   <div className="task-item" key={task.id}>
                     <h4>{task.name}</h4>
-                    <p>For this indie game, we will be giving it a adventerous vibe to make the plqayer feel at ease..</p>
+                    <p>
+                      For this indie game, we will be giving it an adventurous
+                      vibe to make the player feel at ease.
+                    </p>
                     <p>
                       Collaborators:
                       {collaborators.map((collab, index) => (
@@ -151,14 +87,17 @@ const Home = () => {
                         />
                       ))}
                     </p>
-                    {/* Render the gauge chart */}
                     <GaugeChart
                       id={`gauge-chart-${task.id}`}
                       nrOfLevels={30}
                       percent={task.progress / 100}
-                      colors={['#FF6347', '#FFCE56', '#28a745']}
+                      colors={["#FF6347", "#FFCE56", "#28a745"]}
                       arcWidth={0.3}
-                      style={{ width: '200px', height: '100px', margin: '10px 0' }}
+                      style={{
+                        width: "200px",
+                        height: "100px",
+                        margin: "10px 0",
+                      }}
                     />
                   </div>
                 ))}
@@ -166,9 +105,8 @@ const Home = () => {
             </div>
             <div className="calendar white-section">
               <h4>Calendar</h4>
-              <Calendar value={date} onChange={setDate} /> {/* Calendar component */}
+              <Calendar value={date} onChange={setDate} />
             </div>
-            
             <div className="todo-list white-section">
               <h4>To-do List</h4>
               <ul>
@@ -179,16 +117,19 @@ const Home = () => {
                       checked={task.completed}
                       onChange={() => toggleTaskCompletion(task.id)}
                     />
-                    <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+                    <span
+                      style={{
+                        textDecoration: task.completed
+                          ? "line-through"
+                          : "none",
+                      }}
+                    >
                       {task.task}
                     </span>
                   </li>
                 ))}
               </ul>
-              
             </div>
-            
-            
           </div>
         </div>
       </main>
