@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { FaHome, FaTasks, FaComments, FaChartLine } from "react-icons/fa";
+import {
+  FaHome,
+  FaTasks,
+  FaComments,
+  FaChartLine,
+  FaRegListAlt,
+} from "react-icons/fa";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "./Sidebar.css";
 
 const Sidebar = () => {
@@ -11,30 +18,38 @@ const Sidebar = () => {
 
   return (
     <aside className={`sidebar ${isSidebarCollapsed ? "collapsed" : ""}`}>
-      <div className="sidebar-logo">My App</div>
-      <button className="toggle-button" onClick={toggleSidebar}>
-        {isSidebarCollapsed ? "☰" : "×"} {/* Toggle icon */}
-      </button>
+      <div className="header-container">
+        <button className="toggle-button" onClick={toggleSidebar}>
+          {isSidebarCollapsed ? "☰" : "×"} {/* Toggle icon */}
+        </button>
+        <div className="sidebar-logo">My App</div>
+      </div>
+
       <ul className="sidebar-nav">
         <li className="sidebar-item">
-          <a href="#home" className="sidebar-link">
+          <Link to="/home" className="sidebar-link">
             <FaHome className="sidebar-icon" /> <span>Home</span>
-          </a>
+          </Link>
         </li>
         <li className="sidebar-item">
-          <a href="#topics" className="sidebar-link">
+          <Link to="/todo" className="sidebar-link">
+            <FaRegListAlt className="sidebar-icon" /> <span>To Do</span>
+          </Link>
+        </li>
+        <li className="sidebar-item">
+          <Link to="/topics" className="sidebar-link">
             <FaChartLine className="sidebar-icon" /> <span>Topics</span>
-          </a>
+          </Link>
         </li>
         <li className="sidebar-item">
-          <a href="#tasks" className="sidebar-link">
+          <Link to="/tasks" className="sidebar-link">
             <FaTasks className="sidebar-icon" /> <span>My Tasks</span>
-          </a>
+          </Link>
         </li>
         <li className="sidebar-item">
-          <a href="#messages" className="sidebar-link">
+          <Link to="/messages" className="sidebar-link">
             <FaComments className="sidebar-icon" /> <span>Messages</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </aside>
