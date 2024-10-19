@@ -5,9 +5,12 @@ import {
   FaComments,
   FaChartLine,
   FaRegListAlt,
+  FaProjectDiagram,
+  FaRProject,
 } from "react-icons/fa";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import "./Sidebar.css";
+import { FaDiagramProject } from "react-icons/fa6";
 
 const Sidebar = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -38,17 +41,18 @@ const Sidebar = () => {
         </li>
         <li className="sidebar-item">
           <Link to="/topics" className="sidebar-link">
-            <FaChartLine className="sidebar-icon" /> <span>Topics</span>
+            <FaComments className="sidebar-icon" /> <span>Posts</span>
           </Link>
         </li>
         <li className="sidebar-item">
           <Link to="/tasks" className="sidebar-link">
-            <FaTasks className="sidebar-icon" /> <span>My Tasks</span>
+            <FaDiagramProject className="sidebar-icon" />{" "}
+            <span>My Projects</span>
           </Link>
         </li>
         <li className="sidebar-item">
           <Link to="/messages" className="sidebar-link">
-            <FaComments className="sidebar-icon" /> <span>Messages</span>
+            <FaChartLine className="sidebar-icon" /> <span>Analytics</span>
           </Link>
         </li>
       </ul>
