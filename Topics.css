@@ -1,0 +1,156 @@
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px; /* Keep the sidebar width the same */
+  height: 100%;
+  background-color: #333; /* Retain the original color */
+  padding: 20px;
+  color: white;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-item {
+  margin: 15px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures equal length */
+  padding: 10px; /* Add padding for consistent height */
+  border-radius: 5px; /* Rounded corners for items */
+  transition: background-color 0.3s ease; /* Smooth background change */
+}
+
+.sidebar-item:hover {
+  background-color: #444; /* Change color on hover for better UX */
+}
+
+.sidebar-item span {
+  margin-left: 10px;
+  flex-grow: 1; /* Allow text to take up available space */
+  text-align: left; /* Align text to the left */
+}
+
+.sidebar-item svg {
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+
+/* Main Content */
+.main-content {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.topics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.topic-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.actions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background-color: #0056b3;
+}
+
+/* Comment Section */
+.comment-section {
+  margin-top: 10px;
+  display: none; /* Hidden by default */
+}
+
+.topic-card:hover .comment-section {
+  display: block; /* Show on hover */
+}
+
+.add-comment {
+  margin-top: 10px;
+}
+
+.add-comment input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Add Topic Form */
+.add-topic-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.add-topic-form input,
+.add-topic-form textarea {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-topic-form button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Floating button */
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.floating-button:hover {
+  background-color: #0056b3;
+}
