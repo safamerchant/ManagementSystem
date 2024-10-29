@@ -36,20 +36,19 @@ const Home = () => {
   // Dummy tasks for Backlog
   const b_tasks = [
     "Complete project documentation",
-    "Team meeting preparation",
+    "Project NADE",
     "Code review for new features",
-    "Fix bugs in the system",
+    "Marketing Plan",
     "Update project management tools",
   ];
 
   // Dummy data for task performance report
   const performanceData = [
-    { employeeName: "Sam", completedTasks: 4, totalTasks: 5 },
-    { employeeName: "Linda", completedTasks: 3, totalTasks: 4 },
-    { employeeName: "Mari", completedTasks: 2, totalTasks: 3 },
-    { employeeName: "Hawke", completedTasks: 5, totalTasks: 5 },
-    { employeeName: "Alice", completedTasks: 3, totalTasks: 6 },
-    { employeeName: "Bob", completedTasks: 1, totalTasks: 2 },
+    { employeeName: "Alice", completedTasks: 4, totalTasks: 5 },
+    { employeeName: "Dave", completedTasks: 3, totalTasks: 4 },
+    { employeeName: "Charlie", completedTasks: 5, totalTasks: 5 },
+    { employeeName: "Eve", completedTasks: 3, totalTasks: 6 },
+    { employeeName: "Bob", completedTasks: 1, totalTasks: 3 },
   ];
   const getLowestPerformer = () => {
     // Calculate efficiency based on completedTasks / totalTasks and find the lowest
@@ -103,7 +102,7 @@ const Home = () => {
 
   // Dummy data for task timeline chart
   const taskTimelineData = {
-    labels: ["Project A", "Project B", "Project C", "Project D"], // Project names
+    labels: ["Code Review", "Marketing Plan", "Boots Delivery System", "AI Chatbot Integration", "Noir App"], // Project names
     datasets: [
       {
         label: "Deadline (Days Left)",
@@ -119,11 +118,11 @@ const Home = () => {
   };
 
   const [tasks, setTasks] = useState([
-    { taskName: "Team meeting preparation", employeeName: "Sam" },
-    { taskName: "Fix bugs", employeeName: "Linda" },
-    { taskName: "Code review", employeeName: "Mari" },
-    { taskName: "Budgeting", employeeName: "Hawke" },
-    { taskName: "Client Meeting", employeeName: "Alice" },
+    { taskName: "Team meeting preparation", employeeName: "David" },
+    { taskName: "Fix bugs in Noir App", employeeName: "Charlie" },
+    { taskName: "Code review", employeeName: "Eve" },
+    { taskName: "Budgeting for AI chatbot", employeeName: "Eve" },
+    { taskName: "Client Meeting with Boots", employeeName: "Alice" },
     { taskName: "Complete project documentation", employeeName: "Bob" },
   ]);
 
