@@ -1,0 +1,77 @@
+html, body {
+    height: 100%; /* Make sure the html and body take full height */
+    margin: 0; /* Remove default margin */
+  }
+  
+  .full-page {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .projects-page-wrapper {
+    flex: 1; /* Allow this to take remaining space */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for contrast */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .projects-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    gap: 30px; /* Space between cards */
+    justify-content: center; /* Center align cards */
+  }
+  
+  .project-card {
+    background-color: #fff; /* White background for each card */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    width: 300px; /* Fixed width for cards */
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.2s; /* Animation for hover effect */
+  }
+  
+  .project-card:hover {
+    transform: scale(1.06); /* Slightly scale up on hover */
+  }
+  
+  .project-header {
+    cursor: pointer; /* Show pointer cursor on hover */
+  }
+  
+  .project-title {
+    font-size: 1.6rem; /* Larger title font */
+    margin: 0; /* Remove default margin */
+  }
+  
+  .project-description {
+    color: #666; /* Dark grey color for description */
+  }
+  
+  .toggle-button {
+    background-color: yellow; /* Transparent button background */
+    border: none; /* No border */
+    color: #070707; /* Bootstrap primary color */
+    cursor: pointer; /* Pointer cursor */
+    font-weight: bold; /* Bold font */
+  }
+  
+  .project-details {
+    margin-top: 10px; /* Space above details */
+    padding: 10px; /* Padding for details */
+    background-color: #f1f1f1; /* Light background for details */
+    border-radius: 5px; /* Rounded corners */
+  }
+  
+  @media (max-width: 768px) {
+    .project-card {
+      width: 100%; /* Full width for smaller screens */
+    }
+  }
+  
