@@ -14,8 +14,6 @@ const Topics = () => {
   const [comments, setComments] = useState({}); // Manage comments
   const [likes, setLikes] = useState({}); // Manage likes
 
-
-
   // Toggle the form to create a new topic
   const toggleAddTopic = () => {
     setIsAddTopicOpen(!isAddTopicOpen);
@@ -97,33 +95,38 @@ const Topics = () => {
 
         {/* Topics Container */}
         <div className="topics-container">
-          {/* Topics Display */}
-          <div className="topics-grid">
-          {topics.map((topic) => (
-            <div key={topic.id} className="topic-card" onClick={() => handleExpandTopic(topic)}>
-              <h2>{topic.title}</h2>
-              
-              {/* Like and Comment Buttons at the top */}
-              <div className="actions">
-                <button onClick={(e) => { e.stopPropagation(); handleLike(topic.id); }}>
-                  <FaThumbsUp /> {likes[topic.id] || 0} Likes
-                </button>
-                <button onClick={(e) => { e.stopPropagation(); handleExpandTopic(topic); }}>
-                  <FaComments /> {comments[topic.id]?.length || 0} Comments
-                </button>
-              </div>
-              
-              {/* Topic content below actions */}
-              <p>{topic.content}</p>
-
-              {/* Display image if exists */}
-              {topic.image && (
-                <img src={topic.image} alt="Topic" className="topic-image" />
-              )}
+          {/* Display "No Posts Yet" if topics array is empty */}
+          {topics.length === 0 ? (
+            <div className="no-posts-message">
+              No Posts Yet
             </div>
-          ))}
+          ) : (
+            <div className="topics-grid">
+              {topics.map((topic) => (
+                <div key={topic.id} className="topic-card" onClick={() => handleExpandTopic(topic)}>
+                  <h2>{topic.title}</h2>
 
-          </div>
+                  {/* Like and Comment Buttons at the top */}
+                  <div className="actions">
+                    <button onClick={(e) => { e.stopPropagation(); handleLike(topic.id); }}>
+                      <FaThumbsUp /> {likes[topic.id] || 0} Likes
+                    </button>
+                    <button onClick={(e) => { e.stopPropagation(); handleExpandTopic(topic); }}>
+                      <FaComments /> {comments[topic.id]?.length || 0} Comments
+                    </button>
+                  </div>
+
+                  {/* Topic content below actions */}
+                  <p>{topic.content}</p>
+
+                  {/* Display image if exists */}
+                  {topic.image && (
+                    <img src={topic.image} alt="Topic" className="topic-image" />
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Expanded Topic Modal */}
