@@ -1,6 +1,6 @@
 /* Main Content */
 .main-content {
-  margin-left: 220px;
+  margin-left: 0px;
   padding: 20px;
   display: flex;
   flex-direction: column; /* Stack elements vertically */
@@ -20,6 +20,11 @@ h1 {
   align-items: center; /* Center align items */
   justify-content: center; /* Center vertically */
   width: 100%; /* Full width */
+  justify-content: center;
+  align-items: center;
+
+  
+  
 }
 
 .topics-grid {
@@ -28,6 +33,10 @@ h1 {
   gap: 20px; /* Space between posts */
   max-width: 900px; /* Control max width to fit 4 cards at once */
   justify-content: flex-start; /* Align posts from left to right */
+  justify-content: center;
+  align-items: center;
+
+
 }
 
 .topic-card {
@@ -237,3 +246,9 @@ button {
   cursor: pointer;
 }
 
+.no-posts-message {
+  font-size: 1.5rem;
+  color: #666;
+  text-align: center;
+  margin-top: 20px;
+}
