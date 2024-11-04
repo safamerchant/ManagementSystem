@@ -1,0 +1,170 @@
+.profile-main {
+  padding: 20px;
+  background-color: #ecf2f5;
+  width: 100vw;
+  display: flex;
+}
+
+.profile-page-container {
+  flex: 1;
+  padding: 20px;
+  /* margin-left: 270px; Adjust for sidebar */
+}
+.profilepage-title {
+  text-transform: uppercase;
+  display: flex;
+  color: #000000;
+  letter-spacing: 2px;
+  width: 100%;
+  font-size: 36px;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 80vh;
+  gap: 20px;
+}
+
+.profile-user-profile,
+.profile-admin-controls {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+.profile-user-profile {
+  display: flex;
+  /* flex-direction: ; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  grid-area: 1 / 1 / 6 / 4;
+}
+.profile-admin-controls {
+  grid-area: 1 / 4 / 6 / 6;
+}
+.profile-admin-controls h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+  color: #75777a;
+  text-transform: uppercase;
+  margin-left: 1%;
+}
+.profile-user-image {
+  width: 35%;
+}
+.profile-user-image img {
+  /* display: flex; */
+  /* justify-content: center; */
+  background-color: #0a6476;
+  width: 170px;
+  padding: 5px;
+  margin: 20% 10% 10% 10%;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+.change-pic-label {
+  font-size: x-large;
+  width: 100%;
+  margin-left: 20%;
+  color: #0a6476;
+}
+.profile-user-details,
+.profile-password-management {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 45%;
+  padding-left: 6%;
+  background-color: #f8f8f8;
+  margin-bottom: 10%;
+
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.user-change-details {
+  width: 65%;
+  padding-top: 0%;
+}
+
+.profile-user-item {
+  margin: 10px 0;
+}
+
+button {
+  margin: 10px 6% 10px 0px;
+  padding: 10px 15px;
+  background-color: #ecf2f5;
+  color: #0a6476;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.manage-users-section {
+  margin-bottom: 20px;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  /*background-color: #f9f9f9;*/
+  padding: 10px;
+  padding-top: 0%;
+  padding: 10px;
+  overflow: auto;
+}
+
+.expand-btn {
+  width: 100%;
+  text-align: left;
+  background-color: #ffffff;
+  color: rgb(8, 8, 8);
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.manage-users-content {
+  margin-top: 10px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+}
+
+.user-table td {
+  background-color: #fff;
+}
+
+.user-table button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #0a6476;
+  color: white;
+  border-radius: 4px;
+}
+
+.user-table .delete-btn {
+  background-color: #f44336;
+}

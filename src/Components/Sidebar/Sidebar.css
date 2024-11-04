@@ -1,21 +1,20 @@
-/* General styling for sidebar */
+/* Sidebar.css */
+
 .sidebar {
   width: 250px; /* Sidebar width */
-  background-color: #333; /* Dark background */
+  background-color: #0a6476; /* Dark background */
   padding: 20px; /* Internal padding */
   transition: width 0.3s ease; /* Smooth transition when collapsing */
+  max-height: 100%;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
 }
-.header-container {
-  display: flex; /* Aligns child elements in a row */
-  align-items: center; /* Vertically center elements */
-  gap: 10%;
-  padding: 10px; /* Add some padding if needed */
-}
-.sidebar-logo {
-  font-size: 24px; /* Logo font size */
-  color: white; /* White text */
-  text-align: center;
-  margin-bottom: 20px; /* Space below logo */
+
+/* Container to flexibly position nav items and logout button */
+.sidebar-nav-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Expand to fill sidebar space */
 }
 
 .sidebar-nav {
@@ -28,10 +27,12 @@
 }
 
 .sidebar-link {
+  gap: 20px;
   display: flex; /* Flexbox for layout */
   align-items: center; /* Align items vertically */
   padding: 15px; /* Padding inside the link */
-  background-color: #444; /* Dark gray background */
+  font-weight: bolder;
+  background-color: transparent; /* Dark gray background */
   border-radius: 8px; /* Rounded corners */
   text-decoration: none; /* Remove underline */
   color: white; /* White text */
@@ -40,30 +41,66 @@
 }
 
 .sidebar-link:hover {
-  background-color: #555; /* Change background on hover */
+  color: #0a6476; /* Text color */
+  background-color: #ecf2f5; /* Change background on hover */
 }
 
-.sidebar-icon {
-  margin-right: 10px; /* Space between icon and text */
+/* CSS for active sidebar link */
+.active-link .sidebar-link {
+  background-color: #ecf2f5; /* Hover background color */
+  color: #0a6476; /* Text color */
 }
 
+.sidebar-logo {
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-size: 24px; /* Logo font size */
+  color: rgb(255, 255, 255); /* White text */
+  text-align: center;
+}
+
+.icon-white-bg {
+  color: white; /* Change icon color to white */
+  background-color: #0a6476; /* Set background color to your preferred color */
+  border-radius: 50%; /* Make the background circular */
+}
+
+.logout-item {
+  margin-top: auto; /* Pushes logout to bottom */
+}
+
+.logout-item .sidebar-link {
+  background-color: transparent;
+}
+
+.logout-item .sidebar-link:hover {
+  background-color: #f44336; /* Red background on hover for logout */
+  color: white;
+}
+
+/* Collapsed styles */
 .sidebar.collapsed {
   width: 59px; /* Narrower width when collapsed */
 }
-.sidebar.collapsed.sidebar-icon {
-  margin-right: 0px;
-}
+
 .sidebar.collapsed .sidebar-link {
   justify-content: center; /* Center icons when collapsed */
 }
-.sidebar.collapsed .sidebar-logo {
-  display: none;
-}
+
+.sidebar.collapsed .sidebar-logo,
 .sidebar.collapsed .sidebar-link span {
   display: none; /* Hide text when collapsed */
 }
 
+.header-container {
+  display: flex; /* Aligns child elements in a row */
+  align-items: center; /* Vertically center elements */
+  /* gap: 5%; */
+}
+
 .toggle-button {
+  /* margin-left: -2px; */
+  color: white;
   background: transparent; /* No background */
   border: none; /* No border */
   cursor: pointer; /* Pointer cursor on hover */

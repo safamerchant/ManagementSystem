@@ -1,27 +1,69 @@
 import React, { useState } from "react";
+import Stack from "@mui/material/Stack";
+import { PieChart } from "@mui/x-charts/PieChart";
+import { BarChart } from "@mui/x-charts/BarChart";
 import Avatar from "react-avatar";
-import GaugeChart from "react-gauge-chart"; // Import GaugeChart component
-import { Doughnut, Bar } from "react-chartjs-2";
-import Calendar from "react-calendar"; // Import the calendar component
-import "react-calendar/dist/Calendar.css"; // Calendar styles
-import "./Home.css"; // Custom CSS
-import Sidebar from "../Sidebar/Sidebar.jsx"; // Import Sidebar component
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import "./Home.css";
+
+const projects = [
+  { name: "Shop Inventory", totalTasks: 20, completedTasks: 15 },
+  { name: "Delivery App", totalTasks: 25, completedTasks: 20 },
+  { name: "Requirements Documentation", totalTasks: 18, completedTasks: 10 },
+  { name: "Backend API", totalTasks: 22, completedTasks: 12 },
+  { name: "UI Design", totalTasks: 15, completedTasks: 12 },
+];
+
+const averageCompletionRate =
+  (projects.reduce((sum, project) => sum + project.completedTasks, 0) /
+    projects.reduce((sum, project) => sum + project.totalTasks, 0)) *
+  100;
+
+const collaboratorColors = {
+  Alice: "#2BA0B4",
+  Bob: "#BEC7E7",
+  Steven: "#B7DBD1",
+};
+
+const projectData = [
+  {
+    title: "Understanding React Hooks",
+    content:
+      "React hooks are a way to use state and lifecycle features in functional components.",
+    category: "Technical",
+    image: "https://miro.medium.com/v2/resize:fit:900/0*iTuEmxLD1IOJ5Xf1.png", // Example image URL
+    id: 1,
+  },
+  {
+    title: "JavaScript ES6 Features",
+    content: "Learn about the new features introduced in ES6.",
+    category: "Technical",
+    image:
+      "https://media.licdn.com/dms/image/v2/D4D12AQHeu6x2jIurgw/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1702274710606?e=1735776000&v=beta&t=uic0nenAC1uAybIjvCjU8s_N4xNfFX8r6kFwM3pStvk", // Example image URL
+    id: 2,
+  },
+  {
+    title: "The Future of Web Development",
+    content:
+      "Exploring trends and technologies shaping the future of web development.",
+    category: "Non-Technical",
+    image:
+      "https://media.licdn.com/dms/image/D4E12AQF2nlfXoZK2Yw/article-cover_image-shrink_600_2000/0/1675704281846?e=2147483647&v=beta&t=Rs9ejfu9oorJGUiudx8OkCEx0JKdFPsa_WIx0qmtS4Y", // Example image URL
+    id: 3,
+  },
+];
 
 const Home = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [date, setDate] = useState(new Date()); // State for calendar date
+  const [date, setDate] = useState(new Date());
   const [taskList, setTasks] = useState([
     { id: 1, task: "Complete project documentation", completed: false },
     { id: 2, task: "Prepare for presentation", completed: false },
     { id: 3, task: "Fix bugs in the delivery app", completed: false },
-  ]); // Dummy data for to-do list
+  ]);
 
-  const tasks = [
-    { id: 1, name: "Game COO", progress: 30 }, // 30% done
-    { id: 2, name: "Delivery App", progress: 88 }, // 88% done
-  ];
-
-  // Handle checkbox toggle for tasks
   const toggleTaskCompletion = (taskId) => {
     setTasks(
       taskList.map((task) =>
@@ -30,85 +72,109 @@ const Home = () => {
     );
   };
 
-  const collaborators = [
-    { name: "Alice", email: "alice@example.com" },
-    { name: "Bob", email: "bob@example.com" },
-    { name: "Charlie", email: "charlie@example.com" },
-    { name: "Dana", email: "dana@example.com" },
-  ];
-
   return (
     <div className="home-container">
-      {/* Sidebar */}
-      <Sidebar />
-
-      {/* Main Content */}
       <main className="main-content">
-        {/* Top Bar with Avatar */}
+        {/* Header */}
         <div className="top-bar">
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="search-bar"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="user-info">
-            <Avatar name="Alice" round={true} size="40" />
-            <span className="user-name">Alice / BackEnd Developer </span>
+          <span className="header-text">Good Morning, Alice 👋</span>
+          <div className="main-user-info">
+            <FontAwesomeIcon icon={faBell} className="bell-icon" />
+            <div className="user-avatar">
+              <Avatar
+                name="Alice"
+                round={true}
+                size="50"
+                color="#0a6476"
+                textColor="#333"
+              />
+            </div>
           </div>
         </div>
 
-        {/* Content Below Navbar */}
+        {/* Dashboard Content */}
         <div className="content">
           <div className="grid-container">
+            {/* Projects Overview Section */}
             <div className="tasks-section white-section">
-              <h3>Today's Tasks</h3>
-              <div className="tasks-list">
-                {tasks.map((task) => (
-                  <div className="task-item" key={task.id}>
-                    <h4>{task.name}</h4>
-                    <p>
-                      For this indie game, we will be giving it an adventurous
-                      vibe to make the player feel at ease.
-                    </p>
-                    <p>
-                      Collaborators:
-                      {collaborators.map((collab, index) => (
-                        <Avatar
-                          key={index}
-                          name={collab.name}
-                          email={collab.email}
-                          round={true}
-                          size="20"
-                          style={{ margin: "0 2px" }}
-                        />
-                      ))}
-                    </p>
-                    <GaugeChart
-                      id={`gauge-chart-${task.id}`}
-                      nrOfLevels={30}
-                      percent={task.progress / 100}
-                      colors={["#FF6347", "#FFCE56", "#28a745"]}
-                      arcWidth={0.3}
-                      style={{
-                        width: "200px",
-                        height: "100px",
-                        margin: "10px 0",
-                      }}
-                    />
-                  </div>
-                ))}
+              <h3>Projects Overview</h3>
+              <div className="overview-charts">
+                {/* Pie Chart for Average Completion Rate */}
+                <div className="average-completion-pie">
+                  <PieChart
+                    series={[
+                      {
+                        data: [
+                          {
+                            id: "completed",
+                            value: averageCompletionRate,
+                            color: "#2BA0B4",
+                          },
+                          {
+                            id: "remaining",
+                            value: 100 - averageCompletionRate,
+                            color: "#ddd",
+                          },
+                        ],
+                        innerRadius: 73,
+                        outerRadius: 100,
+                        paddingAngle: 3,
+                        colors: ["#2BA0B4", "#ddd"],
+                      },
+                    ]}
+                    width={300}
+                    height={300}
+                    slotProps={{
+                      labels: {
+                        render: ({ datum }) => {
+                          if (datum.id === "remaining") return "";
+                          return `${averageCompletionRate.toFixed(
+                            0
+                          )}% Completed`;
+                        },
+                        style: {
+                          fontSize: 12,
+                          fill: "#333",
+                          textAnchor: "middle",
+                          dominantBaseline: "central",
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                {/* Bar Chart for Project-Specific Task Counts */}
+                <div className="projects-bar-chart">
+                  <BarChart
+                    series={[
+                      {
+                        data: projects.map((project) => project.totalTasks),
+                        label: "Total Tasks",
+                        color: "#BEC7E7",
+                      },
+                      {
+                        data: projects.map((project) => project.completedTasks),
+                        label: "Completed Tasks",
+                        color: "#2BA0B4",
+                      },
+                    ]}
+                    categories={projects.map((project) => project.name)}
+                    width={500}
+                    height={300}
+                  />
+                </div>
               </div>
             </div>
+
+            {/* Calendar Section */}
             <div className="calendar white-section">
-              <h4>Calendar</h4>
+              <h3>Calendar</h3>
               <Calendar value={date} onChange={setDate} />
             </div>
+
+            {/* To-do List Section */}
             <div className="todo-list white-section">
-              <h4>To-do List</h4>
+              <h3>To-do List</h3>
               <ul>
                 {taskList.map((task) => (
                   <li key={task.id}>
@@ -129,6 +195,30 @@ const Home = () => {
                   </li>
                 ))}
               </ul>
+            </div>
+            {/* Post Section */}
+            <div className="posts white-section">
+              <h3>Recent Posts</h3>
+              <div className="post-grid">
+                {projectData.map((item, index) => (
+                  <div key={item.id} className="topic-card">
+                    {item.image && (
+                      <img
+                        src={item.image}
+                        alt="Topic"
+                        className="topic-image"
+                      />
+                    )}
+                    <h2>{item.title}</h2>
+                    <p>{item.content}</p>
+                    <span
+                      className={`category-label ${item.category.toLowerCase()}`}
+                    >
+                      {item.category}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

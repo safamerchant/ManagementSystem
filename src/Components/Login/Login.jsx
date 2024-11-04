@@ -1,18 +1,33 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faScrewdriverWrench } from "@fortawesome/free-solid-svg-icons";
+import "./auth.css";
 
-const Login = () => {
+const Login = ({ onLoginSuccess }) => {
+  const [isRegister, setIsRegister] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const users = {
+    "employee@gmail.com": { password: "you", role: "Employee" },
+    "manager@gmail.com": { password: "manager", role: "Manager" },
+  };
 
-    // Check if email contains an "@" and matches hardcoded credentials
-    if (email === "employee@gmail.com" && password === "you") {
-      navigate("/home");  // Navigate to the home page on successful login
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    const user = users[email];
+    if (user && user.password === password) {
+      onLoginSuccess(user.role);
+      navigate("/home");
     } else if (!email.includes("@")) {
       setError("Invalid email format. Please include an '@' symbol.");
     } else {
@@ -20,82 +35,172 @@ const Login = () => {
     }
   };
 
+  const validatePassword = (password) => {
+    return (
+      password.length >= 8 && /[A-Z]/.test(password) && /[a-z]/.test(password)
+    );
+  };
+
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
+    if (!email.includes("@")) {
+      setError("Invalid email format. Please include an '@' symbol.");
+    } else if (!validatePassword(password)) {
+      setError(
+        "Password must be at least 8 characters, include uppercase and lowercase letters."
+      );
+    } else {
+      navigate("/home");
+    }
+  };
+
+  const handleForgotPasswordSubmit = (e) => {
+    e.preventDefault();
+    const user = users[email];
+    if (!user) {
+      setError("Email not found.");
+    } else if (user.password !== oldPassword) {
+      setError("Old password is incorrect.");
+    } else if (newPassword !== confirmPassword) {
+      setError("New passwords do not match.");
+    } else if (!validatePassword(newPassword)) {
+      setError(
+        "Password must be at least 8 characters, include uppercase and lowercase letters."
+      );
+    } else {
+      user.password = newPassword;
+      setError("");
+      setSuccessMessage("Password changed successfully.");
+      setEmail("");
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      setIsForgotPassword(false);
+    }
+  };
+
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        padding: "20px",
-        maxWidth: "300px",
-        margin: "50px auto",  // Center the form vertically as well
-        textAlign: "center",
-        border: "1px solid #ddd",  // Optional: a slight border for distinction
-        borderRadius: "5px",  // Optional: rounded corners
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",  // Optional: add shadow for depth
-      }}
-    >
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{
-              padding: "10px",
-              width: "100%",
-              margin: "10px 0",
-              boxSizing: "border-box",  // Ensure padding doesn't mess with the width
-              border: "1px solid #ccc",  // Light border for input
-              borderRadius: "4px",  // Rounded input field
-            }}
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{
-              padding: "10px",
-              width: "100%",
-              margin: "10px 0",
-              boxSizing: "border-box",  // Ensure padding doesn't mess with the width
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-        </div>
-        <div>
-          <button
-            type="submit"
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "black",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-              width: "100%",
-              borderRadius: "4px",  // Same rounded style for button
-            }}
-            onMouseOver={(e) => {
-              e.target.style.backgroundColor = "green";
-              e.target.style.color = "white";
-            }}
-            onMouseOut={(e) => {
-              e.target.style.backgroundColor = "black";
-              e.target.style.color = "white";
-            }}
+    <div className="container">
+      <div className="left-panel">
+        <h1 className="loginslogan">
+          {isRegister ? "Let's get started" : "Makes it All a Breeze"}
+        </h1>
+        <iframe
+          className="animation login-animation"
+          src="https://lottie.host/embed/36422f53-d041-45f6-b282-962c2277247b/UFWJnnbsVP.json"
+        ></iframe>
+      </div>
+      <div className="right-panel">
+        <div className="auth-box">
+          <h2>
+            {isRegister
+              ? "Register"
+              : isForgotPassword
+              ? "Forgot Password"
+              : "Log In"}
+          </h2>
+          <form
+            onSubmit={
+              isForgotPassword
+                ? handleForgotPasswordSubmit
+                : isRegister
+                ? handleRegisterSubmit
+                : handleLoginSubmit
+            }
           >
-            Login
-          </button>
+            {isRegister && (
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="input-field"
+              />
+            )}
+            <input
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input-field"
+            />
+            {!isForgotPassword && (
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="input-field"
+              />
+            )}
+            {isForgotPassword && (
+              <>
+                <input
+                  type="password"
+                  placeholder="Old Password"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                  className="input-field"
+                />
+                <input
+                  type="password"
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="input-field"
+                />
+                <input
+                  type="password"
+                  placeholder="Confirm New Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="input-field"
+                />
+              </>
+            )}
+            <button type="submit" className="button">
+              {isForgotPassword
+                ? "Reset Password"
+                : isRegister
+                ? "Register"
+                : "Sign In"}
+            </button>
+            {error && <p className="error">{error}</p>}
+            {successMessage && <p className="success">{successMessage}</p>}
+          </form>
+          <p className="link-text">
+            {isForgotPassword ? (
+              <span onClick={() => setIsForgotPassword(false)} className="link">
+                Go back to login
+              </span>
+            ) : isRegister ? (
+              <>
+                Already have an account?{" "}
+                <span onClick={() => setIsRegister(false)} className="link">
+                  Login here
+                </span>
+              </>
+            ) : (
+              <>
+                Don’t have an account?{" "}
+                <span onClick={() => setIsRegister(true)} className="link">
+                  Register Here
+                </span>
+              </>
+            )}
+          </p>
+          {!isForgotPassword && !isRegister && (
+            <p>
+              <span
+                onClick={() => setIsForgotPassword(true)}
+                className="link-text"
+              >
+                Forgot Password?
+              </span>
+            </p>
+          )}
         </div>
-        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
-      </form>
-      <p style={{ marginTop: "15px" }}>
-        New user? <a href="/register" style={{ color: "blue" }}>Register here</a>
-      </p>
+      </div>
     </div>
   );
 };

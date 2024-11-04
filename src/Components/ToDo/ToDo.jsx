@@ -1,7 +1,11 @@
 import "./ToDo.css"; // Custom CSS
+import Avatar from "react-avatar";
 import Sidebar from "../Sidebar/Sidebar.jsx"; // Import Sidebar component
 import React, { useState, useEffect } from "react";
-import { toast, ToastContainer } from "react-toastify";
+// import { toast, ToastContainer } from "react-toastify";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 
@@ -21,6 +25,18 @@ const ToDoList = () => {
         currentProgress: "todo",
         deadline: "2024-10-21",
       },
+      {
+        title: "Task 2",
+        description: "Task 2 description",
+        currentProgress: "todo",
+        deadline: "2024-10-21",
+      },
+      {
+        title: "Task 2",
+        description: "Task 2 description",
+        currentProgress: "todo",
+        deadline: "2024-10-21",
+      },
     ],
     inProgress: [
       {
@@ -29,6 +45,12 @@ const ToDoList = () => {
         currentProgress: "inProgress",
         deadline: "2024-10-22",
       },
+      {
+        title: "Task 2",
+        description: "Task 2 description",
+        currentProgress: "todo",
+        deadline: "2024-10-21",
+      },
     ],
     done: [
       {
@@ -36,6 +58,12 @@ const ToDoList = () => {
         description: "Task 4 description",
         currentProgress: "done",
         deadline: "2024-10-15",
+      },
+      {
+        title: "Task 2",
+        description: "Task 2 description",
+        currentProgress: "todo",
+        deadline: "2024-10-21",
       },
     ],
   });
@@ -113,19 +141,19 @@ const ToDoList = () => {
   };
 
   // Deadline check and notification
-  useEffect(() => {
-    const checkDeadlines = () => {
-      const allTasks = [...tasks.todo, ...tasks.inProgress];
-      allTasks.forEach((task) => {
-        const deadline = moment(task.deadline);
-        if (moment().isAfter(deadline.subtract(1, "days"))) {
-          toast.warning(`Task "${task.title}" is nearing its deadline!`);
-        }
-      });
-    };
-    const interval = setInterval(checkDeadlines, 60000); // Check every minute
-    return () => clearInterval(interval);
-  }, [tasks]);
+  // useEffect(() => {
+  //   const checkDeadlines = () => {
+  //     const allTasks = [...tasks.todo, ...tasks.inProgress];
+  //     allTasks.forEach((task) => {
+  //       const deadline = moment(task.deadline);
+  //       if (moment().isAfter(deadline.subtract(1, "days"))) {
+  //         toast.warning(`Task "${task.title}" is nearing its deadline!`);
+  //       }
+  //     });
+  //   };
+  //   const interval = setInterval(checkDeadlines, 60000); // Check every minute
+  //   return () => clearInterval(interval);
+  // }, [tasks]);
 
   // Function to delete a task
   const deleteTask = (taskTitle, column) => {
@@ -139,9 +167,15 @@ const ToDoList = () => {
   return (
     <div className="full-page">
       {/* Sidebar */}
-      <Sidebar />
+      {/* <Sidebar /> */}
 
       <div className="page-wrapper">
+        <div className="user-info">
+          <FontAwesomeIcon icon={faBell} className="bell-icon" />
+          <Avatar name="Alice" round={true} size="50" color="#0a6476" />
+          {/* <span className="user-name">Alice / Backend Developer</span> */}
+        </div>
+
         <h1 className="header">My TO-DO List</h1>
         <button className="add-task-button" onClick={() => setIsFormOpen(true)}>
           Add Task
@@ -149,7 +183,7 @@ const ToDoList = () => {
 
         <div className="box-wrapper">
           {/* TO DO BOX */}
-          <div className="box" style={{ backgroundColor: "#ff6347" }}>
+          <div className="box" style={{ backgroundColor: "#BEC7E7" }}>
             <h2>TO DO</h2>
             {tasks.todo.map((task, index) => (
               <div
@@ -159,20 +193,20 @@ const ToDoList = () => {
               >
                 <span>{task.title}</span>
                 <button
-                  className="delete-button"
+                  className="tasks-delete-button"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent the click event from bubbling up to the task
-                    deleteTask(task.title, "todo");
+                    deleteTask(task.title, "todo"); // or "inProgress", "done" as per column
                   }}
                 >
-                  Delete
+                  <FontAwesomeIcon icon={faTrash} />
                 </button>
               </div>
             ))}
           </div>
 
           {/* IN-PROGRESS BOX */}
-          <div className="box" style={{ backgroundColor: "#ffb400" }}>
+          <div className="box" style={{ backgroundColor: "#7ccdde" }}>
             <h2>IN PROGRESS</h2>
             {tasks.inProgress.map((task, index) => (
               <div
@@ -182,20 +216,20 @@ const ToDoList = () => {
               >
                 <span>{task.title}</span>
                 <button
-                  className="delete-button"
+                  className="tasks-delete-button"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent the click event from bubbling up to the task
-                    deleteTask(task.title, "inProgress");
+                    deleteTask(task.title, "inProgress"); // For "In Progress" box
                   }}
                 >
-                  Delete
+                  <FontAwesomeIcon icon={faTrash} />
                 </button>
               </div>
             ))}
           </div>
 
           {/* DONE BOX */}
-          <div className="box" style={{ backgroundColor: "#32cd32" }}>
+          <div className="box" style={{ backgroundColor: "#B7DBD1" }}>
             <h2>DONE</h2>
             {tasks.done.map((task, index) => (
               <div
@@ -205,13 +239,13 @@ const ToDoList = () => {
               >
                 <span>{task.title}</span>
                 <button
-                  className="delete-button"
+                  className="tasks-delete-button"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent the click event from bubbling up to the task
-                    deleteTask(task.title, "done");
+                    deleteTask(task.title, "done"); // For "Done" box
                   }}
                 >
-                  Delete
+                  <FontAwesomeIcon icon={faTrash} />
                 </button>
               </div>
             ))}
@@ -266,7 +300,7 @@ const ToDoList = () => {
           </div>
         )}
 
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </div>
     </div>
   );
